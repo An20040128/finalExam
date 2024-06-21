@@ -63,7 +63,7 @@ public class DatabaseQueryGUI {
         frame.setSize(600, 400);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(6, 2)); // 修改為6行以適應新的按鈕
+        panel.setLayout(new GridLayout(6, 2));
 
         JLabel labelQuery = new JLabel("SQL輸入:");
         JTextField textFieldQuery = new JTextField();
@@ -169,14 +169,14 @@ public class DatabaseQueryGUI {
     private static DefaultTableModel buildTableModel(ResultSet rs) throws SQLException {
         ResultSetMetaData metaData = rs.getMetaData();
 
-        // Get column names
+        
         int columnCount = metaData.getColumnCount();
         Vector<String> columnNames = new Vector<>();
         for (int i = 1; i <= columnCount; i++) {
             columnNames.add(metaData.getColumnName(i));
         }
 
-        // Get rows
+        
         Vector<Vector<Object>> data = new Vector<>();
         while (rs.next()) {
             Vector<Object> vector = new Vector<>();

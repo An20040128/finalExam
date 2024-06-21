@@ -16,24 +16,24 @@ public class ResetAndInsertData {
         PreparedStatement preparedStatement = null;
 
         try {
-            // 載入MariaDB JDBC
+            
             Class.forName("org.mariadb.jdbc.Driver");
 
-            // 建立連接
+            
             connection = DriverManager.getConnection(url, user, password);
             statement = connection.createStatement();
 
-            // 禁用外鍵約束
+            
             statement.execute("SET FOREIGN_KEY_CHECKS = 0");
 
-            // 刪除所有表格
+            
             ResultSet resultSet = statement.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = '411177010'");
             while (resultSet.next()) {
                 String tableName = resultSet.getString(1);
                 statement.execute("DROP TABLE IF EXISTS " + tableName);
             }
 
-            // 創建表格
+            
             String createPlantTable = "CREATE TABLE IF NOT EXISTS Plant (" +
                     "PlantID INT PRIMARY KEY, " +
                     "PlantName VARCHAR(50))";
@@ -110,10 +110,9 @@ public class ResetAndInsertData {
             statement.execute(createSalesTable);
             statement.execute(createInventoryTable);
 
-            // 啟用外鍵約束
+            
             statement.execute("SET FOREIGN_KEY_CHECKS = 1");
-
-            // 插入資料的SQL語句
+            
             String insertPlantSQL = "INSERT INTO Plant (PlantID, PlantName) VALUES (?, ?)";
             String insertBrandSQL = "INSERT INTO Brand (BrandID, BrandName) VALUES (?, ?)";
             String insertModelSQL = "INSERT INTO Model (ModelID, ModelName, BrandID, ModelType) VALUES (?, ?, ?, ?)";
@@ -124,7 +123,7 @@ public class ResetAndInsertData {
             String insertSalesSQL = "INSERT INTO Sales (SaleID, VIN, SaleDate, SalePrice, DealerID) VALUES (?, ?, ?, ?, ?)";
             String insertInventorySQL = "INSERT INTO Inventory (VIN, DealerID, InventoryDate) VALUES (?, ?, ?)";
 
-            // 插入 Plant 資料
+            //Plant
             preparedStatement = connection.prepareStatement(insertPlantSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "Plant A");
@@ -134,7 +133,7 @@ public class ResetAndInsertData {
             preparedStatement.setString(2, "Plant B");
             preparedStatement.executeUpdate();
 
-            // 插入 Brand 資料
+            //Brand
             preparedStatement = connection.prepareStatement(insertBrandSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "Toyota");
@@ -156,7 +155,7 @@ public class ResetAndInsertData {
             preparedStatement.setString(2, "Nissan");
             preparedStatement.executeUpdate();
 
-            // 插入 Model 資料
+            //Model
             preparedStatement = connection.prepareStatement(insertModelSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "Camry");
@@ -188,7 +187,7 @@ public class ResetAndInsertData {
             preparedStatement.setString(4, "Sedan");
             preparedStatement.executeUpdate();
 
-            // 插入 Customer 資料
+            //Customer
             preparedStatement = connection.prepareStatement(insertCustomerSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "John Doe");
@@ -230,7 +229,7 @@ public class ResetAndInsertData {
             preparedStatement.setDouble(6, 70000);
             preparedStatement.executeUpdate();
 
-            // 插入 Dealer 資料
+            //Dealer
             preparedStatement = connection.prepareStatement(insertDealerSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "Best Motors");
@@ -256,7 +255,7 @@ public class ResetAndInsertData {
             preparedStatement.setString(4, "555-1234");
             preparedStatement.executeUpdate();
 
-            // 插入 Transmission 資料
+            //Transmission
             preparedStatement = connection.prepareStatement(insertTransmissionSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "Getrag");
@@ -276,7 +275,7 @@ public class ResetAndInsertData {
             preparedStatement.setInt(4, 1);
             preparedStatement.executeUpdate();
 
-            // 插入 Vehicle 資料
+            //Vehicle
             preparedStatement = connection.prepareStatement(insertVehicleSQL);
             preparedStatement.setString(1, "VIN001");
             preparedStatement.setInt(2, 1);
@@ -348,7 +347,7 @@ public class ResetAndInsertData {
             preparedStatement.setString(8, "Automatic");
             preparedStatement.executeUpdate();
 
-            // 插入 Sales 資料
+            //Sales
             preparedStatement = connection.prepareStatement(insertSalesSQL);
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, "VIN001");
@@ -399,7 +398,7 @@ public class ResetAndInsertData {
             preparedStatement.setInt(5, 4);
             preparedStatement.executeUpdate();
 
-            // 插入 Inventory 資料
+            //Inventory
             preparedStatement = connection.prepareStatement(insertInventorySQL);
             preparedStatement.setString(1, "VIN001");
             preparedStatement.setInt(2, 1);
@@ -445,7 +444,7 @@ public class ResetAndInsertData {
             System.err.println("連接失敗！");
             e.printStackTrace();
         } finally {
-            // 關閉資源
+            
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
