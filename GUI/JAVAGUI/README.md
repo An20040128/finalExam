@@ -1,18 +1,8 @@
-## Getting Started
+DatabaseQueryGUI為我們的GUI
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+一開始會先進入輸入USER跟PASSWORD的畫面，我們的帳號密碼為411177010
 
-## Folder Structure
+輸入完後會正式進入查詢GUI
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+在輸入欄輸入要查詢的SQL語句，按下查詢即可看到結果
+若按下查看所有資料會出現一個的彈跳視窗有所有的Table的按鈕，按下他們會看到裡面的資料
